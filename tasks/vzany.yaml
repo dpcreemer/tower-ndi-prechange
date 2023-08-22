@@ -1,0 +1,20 @@
+---
+# tasks file for VZAny
+
+- name: Setup Connection to APIC
+  set_fact:
+    auth: &auth   
+      host: "{{ ansible_host }}"
+      username: "{{ aci_username }}"
+      private_key: "{{ aci_private_key }}"
+      validate_certs: false
+      output_path: "{{ prechange_file }}"
+
+- name: Assign VZAny Contracts
+  cisco.aci.aci_vzany_to_contract:
+    <<: *auth
+    tenant: "{{ tenant }}"
+    vrf: "{{ vrf }}"
+    contract: "{{ item.contract }}"
+    type: "{{ item.direction }}"
+  loop: "{{ contracts }}"

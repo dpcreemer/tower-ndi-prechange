@@ -1,0 +1,25 @@
+---
+# tasks file for tenant
+
+- name: Setup APIC Connectivity
+  ansible.builtin.set_fact:
+    auth: &auth
+      host: "{{ ansible_host }}"
+      username: "{{ aci_username }}"
+      private_key: "{{ aci_private_key }}"
+      validate_certs: false
+      output_path: "{{ prechange_file }}"
+
+- name: Create Tenant
+  cisco.aci.aci_tenant:
+    <<: *auth
+    tenant: "{{ tenant }}"
+    name_alias: "{{ tenant_alias }}"
+    description: "{{ tenant_description }}"
+
+- name: Create VRF
+  cisco.aci.aci_vrf:
+    <<: *auth
+    tenant: "{{ tenant }}"
+    vrf: "{{ vrf }}"
+    description: "{{ vrf_description }}"

@@ -1,0 +1,18 @@
+---
+# ACI Tenant playbook
+- name: Create ansible tenant and its dependencies
+  hosts: Bloomington
+  connection: local
+
+  vars:
+    prechange_file: dryrun.json
+    tenant: ansible
+    vrf: demo
+
+  tasks:
+    - name: Create Tenant and its dependencies
+      ansible.builtin.import_tasks: tasks/tenant.yaml
+      vars:
+        tenant_alias: Ansible-Test
+        tenant_description: Ansible Test Tenant ~davis
+        vrf_description: Demonstration VRF
