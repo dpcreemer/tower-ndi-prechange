@@ -14,10 +14,10 @@
         ig_name: "{{ insights_fabric_group }}"
         site_name: "{{ site }}"
         name: "{{ change_name }}"
-        file: "/var/lab/awx/output/{{ prechange_file }}"
+        file: "/var/lib/awx/output/{{ prechange_file }}"
         state: present
       
     - name: Delete the pre-change file (because Ansible is lame and can't rename a file.)
       ansible.builtin.file:
-        path: "/var/lab/awx/output/{{ prechange_file }}"
+        path: "/var/lib/awx/output/{{ prechange_file }}"
         state: absent

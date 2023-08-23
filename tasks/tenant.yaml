@@ -9,7 +9,7 @@
       password: "{{ ansible_password }}"
       validate_certs: false
       use_ssl: true
-      output_path: "/var/lab/awx/output/{{ prechange_file }}"
+      output_path: "/var/lib/awx/output/{{ prechange_file }}"
 
 - name: Create Tenant
   cisco.aci.aci_tenant:
