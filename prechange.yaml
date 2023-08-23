@@ -1,7 +1,7 @@
 ---
 
 - name: Run Pre-Change Analysis
-  hosts: nd
+  hosts: ndi
   gather_facts: false
   vars:
     insights_fabric_group: ACI-Fabrics
