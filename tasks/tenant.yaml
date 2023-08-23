@@ -4,9 +4,9 @@
 - name: Setup APIC Connectivity
   ansible.builtin.set_fact:
     auth: &auth
-      host: "{{ ansible_host }}"
-      username: "{{ aci_username }}"
-      private_key: "{{ aci_private_key }}"
+      host: "{{ inventory_hostname }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_password }}"
       validate_certs: false
       output_path: "{{ prechange_file }}"
 
