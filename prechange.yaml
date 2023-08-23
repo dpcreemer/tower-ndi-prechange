@@ -14,16 +14,10 @@
         ig_name: "{{ insights_fabric_group }}"
         site_name: "{{ site }}"
         name: "{{ change_name }}"
-        file: "{{ prechange_file }}"
+        file: "/var/lab/awx/output/{{ prechange_file }}"
         state: present
-
-    - name: Copy the pre-change file to _pcv file
-      ansible.builtin.copy:
-        src: "{{ prechange_file }}"
-        dest: "{{ prechange_file.replace('.json', '_pcv.json') }}"
-        mode: "0644"
       
     - name: Delete the pre-change file (because Ansible is lame and can't rename a file.)
       ansible.builtin.file:
-        path: "{{ prechange_file }}"
+        path: "/var/lab/awx/output/{{ prechange_file }}"
         state: absent
