@@ -4,15 +4,13 @@
   hosts: Bloomington
   connection: local
 
-  vars:
-    prechange_file: "/var/lib/awx/output/{{ change_name }}.json"
-    tenant: ansible
-    vrf: demo
-
   tasks:
     - name: Create Tenant and its dependencies
       ansible.builtin.import_tasks: tasks/tenant.yaml
       vars:
-        tenant_alias: Ansible-Test
-        tenant_description: Ansible Test Tenant ~davis
-        vrf_description: Demonstration VRF
+        tenant: "{{ tenant }}"
+        tenant_alias: "{{ tenant_alias }}"
+        tenant_description: "{{ tenant_description }}"
+        vrf: "{{ vrf }}"
+        vrf_description: "{{ vrf_description }}"
+        prechange_file: "/var/lib/awx/output/{{ change_name }}.json"
