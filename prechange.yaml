@@ -15,8 +15,12 @@
         name: "{{ change_name }}"
         file: "{{ prechange_file }}"
         state: present
+    
+    - name: Show the pre-change file data.
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', prechange_file) }}"
       
-    - name: Delete the pre-change file (because Ansible is lame and can't rename a file.)
+    - name: Delete the pre-change file.
       ansible.builtin.file:
         path: "{{ prechange_file }}"
         state: absent
