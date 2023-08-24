@@ -5,7 +5,7 @@
   connection: local
 
   vars:
-    prechange_file: dryrun.json
+    prechange_file: "/var/lib/awx/output/{{ change_name }}.json"
     tenant: ansible
     vrf: demo
 

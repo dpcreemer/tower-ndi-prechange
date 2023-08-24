@@ -5,8 +5,7 @@
   gather_facts: false
   vars:
     insights_fabric_group: ACI-Fabrics
-    site: Bloomington
-    prechange_file: dryrun.json
+    prechange_file: "/var/lib/awx/output/{{ change_name }}.json"
 
   tasks:
     - name: Create a new Pre-Change Analysis from file
@@ -14,10 +13,20 @@
         ig_name: "{{ insights_fabric_group }}"
         site_name: "{{ site }}"
         name: "{{ change_name }}"
-        file: "/var/lib/awx/output/{{ prechange_file }}"
+        file: "{{ prechange_file }}"
         state: present
       
     - name: Delete the pre-change file (because Ansible is lame and can't rename a file.)
       ansible.builtin.file:
-        path: "/var/lib/awx/output/{{ prechange_file }}"
+        path: "{{ prechange_file }}"
         state: absent
+
+    - name: Validate a Pre-Change Analysis
+      cisco.nd.nd_pcv_delta_analysis:
+        insights_group: "{{ insights_fabric_group }}"
+        site_name: "{{ site }}"
+        name: "{{ change_name }}"
+        state: validate
+        exclude_ack_anomalies: True
+        epoch_choice: epoch2
+      register: pcv_result
