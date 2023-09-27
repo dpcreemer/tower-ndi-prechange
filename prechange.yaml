@@ -4,7 +4,7 @@
   hosts: ndi
   gather_facts: false
   vars:
-    insights_fabric_group: ACI-Fabrics
+    insights_fabric_group: default
     prechange_file: "/var/lib/awx/output/{{ change_name }}.json"
 
   tasks:
